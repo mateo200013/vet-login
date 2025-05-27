@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestión Veterinaria</title>
+  <link rel="stylesheet" href="estilos\estilos.css" />
+</head>
+<body>
+  <header>
+    <h1>Gestión Veterinaria</h1>
+  </header>
+
+  <main id="app">
+    <!-- AUTENTICACIÓN -->
+    <section id="auth">
+      <!-- Registro -->
+      <form id="registerForm" class="form hidden">
+        <h2>Registro</h2>
+        <input type="email" id="regEmail" placeholder="Correo electrónico" required />
+        <div class="password-wrapper">
+          <input type="password" id="regPassword" placeholder="Contraseña" required />
+          <span class="toggle-password">👁</span>
+        </div>
+        <button type="button" onclick="sendVerificationCode()">Enviar Código</button>
+        <input type="text" id="verificationCode" placeholder="Código de verificación" class="hidden" />
+        <button type="submit">Completar Registro</button>
+        <p class="message"></p>
+        <a href="#" onclick="showLogin()">¿Ya tienes cuenta? Inicia sesión</a>
+      </form>
+
+      <!-- Inicio de sesión -->
+      <form id="loginForm" class="form">
+        <h2>Iniciar Sesión</h2>
+        <input type="email" id="loginEmail" placeholder="Correo electrónico" required />
+        <div class="password-wrapper">
+          <input type="password" id="loginPassword" placeholder="Contraseña" required />
+          <span class="toggle-password">👁</span>
+        </div>
+        <button type="submit">Ingresar</button>
+        <p class="message"></p>
+        <a href="#" onclick="showRegister()">¿No tienes cuenta? Regístrate</a>
+        <a href="#" onclick="showRecovery()">¿Olvidaste tu contraseña?</a>
+      </form>
+
+      <!-- Recuperación -->
+      <form id="recoveryForm" class="form hidden">
+        <h2>Recuperar Contraseña</h2>
+        <input type="email" id="recoveryEmail" placeholder="Correo registrado" required />
+        <button type="button" onclick="sendRecoveryCode()">Enviar Código</button>
+        <input type="text" id="recoveryCode" placeholder="Código" class="hidden" />
+        <div class="password-wrapper">
+          <input type="password" id="newPassword" placeholder="Nueva contraseña" class="hidden" />
+          <span class="toggle-password">👁</span>
+        </div>
+        <button type="submit">Restablecer</button>
+        <p class="message"></p>
+        <a href="#" onclick="showLogin()">Volver</a>
+      </form>
+    </section>
+
+    <!-- MENÚ PRINCIPAL -->
+    <section id="mainMenu" class="hidden">
+      <h2>Bienvenido</h2>
+      <nav>
+        <button type="button" onclick="showAppointmentForm()">🗓 Agendar una cita médica</button>
+        <button type="button" onclick="showPetForm()">🐶 Registrar mascota</button>
+        <button type="button" onclick="showReports()">📊 Consultar reportes</button>
+        <button type="button" onclick="showUserData()">👤 Ver mis datos personales</button>
+        <button type="button" onclick="logout()">Cerrar sesión</button>
+      </nav>
+    </section>
+
+    <!-- FORMULARIO DE CITA MÉDICA -->
+    <section id="appointmentForm" class="form hidden">
+      <h2>Agendar Cita Médica</h2>
+      <input type="text" id="ownerName" placeholder="Nombre del dueño" required />
+      <input type="text" id="petName" placeholder="Nombre de la mascota" required />
+      <input type="text" id="speciesBreed" placeholder="Especie y raza" required />
+      <input type="datetime-local" id="appointmentDateTime" required />
+      <textarea id="symptoms" placeholder="Síntomas observados"></textarea>
+      <button type="button" onclick="submitAppointment()">Confirmar Cita</button>
+      <p class="message"></p>
+      <a href="#" onclick="goToMenu()">Volver al menú</a>
+    </section>
+
+    <!-- FORMULARIO REGISTRO MASCOTA -->
+    <section id="petForm" class="form hidden">
+      <h2>Registrar Mascota</h2>
+      <form id="petRegistrationForm">
+        <div class="container">
+          <div class="form-group">
+            <label for="nombre">Nombre de la mascota</label>
+            <input type="text" id="nombre" name="nombre" required />
+          </div>
+
+          <div class="form-group">
+            <label for="especie">Especie</label>
+            <select id="especie" name="especie" required>
+              <option value="">--Seleccione--</option>
+              <option value="perro">Perro</option>
+              <option value="gato">Gato</option>
+              <option value="ave">Ave</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="raza">Raza</label>
+            <select id="raza" name="raza" required>
+              <option value="">--Seleccione--</option>
+              <option value="mestizo">Mestizo</option>
+              <option value="labrador">Labrador</option>
+              <option value="persa">Persa</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Género</label>
+            <label><input type="radio" name="genero" value="macho" required /> Macho</label>
+            <label><input type="radio" name="genero" value="hembra" required /> Hembra</label>
+          </div>
+
+          <div class="form-group">
+            <label for="edad">Edad</label>
+            <input type="number" id="edad" name="edad" min="0" required />
+          </div>
+
+          <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" name="observaciones" rows="4"></textarea>
+          </div>
+
+          <div class="form-group buttons">
+            <input type="submit" value="Registrar" />
+            <input type="reset" value="Limpiar" />
+          </div>
+        </div>
+        <p class="message"></p>
+        <a href="#" onclick="goToMenu()">Volver al menú</a>
+      </form>
+    </section>
+  </main>
+
+  <script src="js\script.js"></script>
+</body>
+</html>
